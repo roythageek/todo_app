@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="displayTodo()">
+    <div id="container">
+      <h1 style="text-align: start; margin-top: 10px;margin-left:10px;">Todo List</h1>
+
+      <div id="input">
+        <input type="text" placeholder="Add your new todo" id="myTodo" />
+        <button onclick="addTodo()" id="btn">+</button>
+      </div>
+      
+
+      <div id="display"></div>
+
+      <div id="todoInfo">
+        <button onclick="clearAll()" id="clear-btn">Clear All</button>
+      </div>
+    </div>
+
+    
+
+    <script>
+      var todoList = [];
+      function addTodo() {
+        todoList.push(myTodo.value)
+        myTodo.value=""
+        displayTodo()
+      }
+
+      function displayTodo(){
+        display.innerHTML = ""
+        for (let index = 0; index < todoList.length; index++) {
+          display.innerHTML += `<div id="show">
+        <h3>${todoList[index]}</h3>
+        <button onclick="deleteOne(${index})" class="btn1">Delete</button>
+        <button onclick="editOne()" class="btn2">Edit</button></div>`
+          console.log(index);
+        }
+      }
+
+      function deleteOne(index){
+        todoList.splice(index,1)
+        displayTodo()
+      }
+      function editOne(index){
+        var response = prompt("Edit your list below")
+        todoList.splice(index,1,response);
+        displayTodo()
+      }
+
+      function clearAll() {
+        var response = confirm(
+          "Are you sure you want to delete all your activities???"
+        );
+        if (response) {
+          todoList.splice(0);
+          display.innerHTML = todoList.splice(0);
+          console.log(todoList);
+        } else{
+          alert("okay,your activities are still intact");
+        }
+      }
+    </script>
+  </body>
+</html>
